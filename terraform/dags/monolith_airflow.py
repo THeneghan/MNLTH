@@ -1,28 +1,23 @@
-from datetime import datetime
-import os
-from pathlib import Path
-path = Path("/here/your/path/file.txt")
-print(path.parent.absolute())
-
-CUR_DIR = os.path.abspath(os.path.dirname(__file__))
 import logging
-
-logger = logging.getLogger(__name__)
-
+import os
+from datetime import datetime
+from pathlib import Path
 
 from airflow import DAG
 from airflow.decorators import task
 from airflow.operators.bash import BashOperator
 from airflow.providers.postgres.operators.postgres import PostgresOperator
 
-# A DAG represents a workflow, a collection of tasks
+logger = logging.getLogger(__name__)
+
+
 with DAG(dag_id="monolith", start_date=datetime(2022, 1, 1), schedule="0 0 * * *") as dag:
 
     @task()
     def load_data():
         logger.info("Executing load_data")
-        from sqlalchemy import create_engine
         import pandas as pd
+        from sqlalchemy import create_engine
         engine = create_engine(
             "postgresql+psycopg2://postgres:password@host.docker.internal:5433/postgres", echo=True
         )
@@ -40,13 +35,12 @@ with DAG(dag_id="monolith", start_date=datetime(2022, 1, 1), schedule="0 0 * * *
         postgres_conn_id="local_db",
         sql='sql/data_cleaning.sql')
 
-
     @task()
     def load_model():
         logger.info("Executing load_model")
         import joblib
-        import psycopg2
         import pandas as pd
+        import psycopg2
         model = joblib.load("/opt/airflow/data/credit_card_model.pkl")
         logger.info("Connecting to DB")
         connection = psycopg2.connect(database="postgres", user="postgres", password="password", host='host.docker.internal',
