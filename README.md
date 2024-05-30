@@ -23,7 +23,7 @@ Conn type: Postgres
 Host: host.docker.internal
 Port: 5433
 
-The required data should now be placed in terraform/data
+The required input data should now be placed in terraform/data
 
 
 To run the DAG execute
