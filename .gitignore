@@ -5,14 +5,13 @@ terraform.tfstate.backup
 .terraform.lock.hcl
 terraform/data/credit_card_model.pkl
 terraform/data/creditcard_2023.csv
+terraform/data/results.parquet
+
 data/results.parquet
 terraform/.terraform
-data_cleaning.sql
 data_loading.py
-credit_card_model.pkl
 model_loading.py
 .DS_Store
 terraform/logs/*
 terraform/dags/__pycache__/monolith_airflow.cpython-312.pyc
-terraform/data/results.parquet
 
