@@ -3,11 +3,6 @@ terraform.tfstate
 terraform.tfstate.backup
 .venv
 .terraform.lock.hcl
-terraform/data/credit_card_model.pkl
-terraform/data/creditcard_2023.csv
-terraform/data/results.parquet
-
-data/results.parquet
 terraform/.terraform
 data_loading.py
 model_loading.py
